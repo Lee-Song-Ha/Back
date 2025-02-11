@@ -16,6 +16,7 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+//
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
