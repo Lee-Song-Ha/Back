@@ -21,19 +21,19 @@ public class LoginController {
     }
 
     // 로그인 처리 POST 요청
-    @PostMapping
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
-        LoginResponseDto response = loginService.authenticateUser(
-                loginRequestDto.getUserId(),
-                loginRequestDto.getPassword()
-        );
-
-        if (response.isSuccess()) {
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(401).body(response);
-        }
-    }
+//    @PostMapping
+//    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+//        LoginResponseDto response = loginService.authenticateUser(
+//                loginRequestDto.getUserId(),
+//                loginRequestDto.getPassword()
+//        );
+//
+//        if (response.isSuccess()) {
+//            return ResponseEntity.ok(response);
+//        } else {
+//            return ResponseEntity.status(401).body(response);
+//        }
+//    }
 
     // 로그아웃 처리
     @PostMapping("/logout")
