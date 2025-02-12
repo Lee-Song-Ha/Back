@@ -16,7 +16,7 @@ public class ApplyController {
 //        return true;
 //    }
 
-    private final ApplyService applyService;  // final 키워드 추가
+    private final ApplyService applyService;
 
     @GetMapping
     public Boolean apply() {
