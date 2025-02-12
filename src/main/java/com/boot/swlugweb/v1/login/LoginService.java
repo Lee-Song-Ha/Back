@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-//로그인수정
 @Service
 public class LoginService {
     private static final int MAX_LOGIN_ATTEMPTS = 5;
@@ -29,7 +28,7 @@ public class LoginService {
         Optional<LoginDomain> userOptional = loginRepository.findById(userId);
 
         if (userOptional.isEmpty()) {
-            return new LoginResponseDto(false, "아이디 또는 비밀번호가 올바르지 않습니다", null);
+            return new LoginResponseDto(false, "아이디 또는 비밀번호가 올바르지 않습니다", null, null);
         }
 
         LoginDomain user = userOptional.get();
@@ -45,7 +44,7 @@ public class LoginService {
             } else {
                 // 아직 잠금 시간이 지나지 않음
                 return new LoginResponseDto(false,
-                        "계정이 잠겼습니다. " + LOCK_TIME_MINUTES + "분 후에 다시 시도해주세요", null);
+                        "계정이 잠겼습니다. " + LOCK_TIME_MINUTES + "분 후에 다시 시도해주세요", null, null);
             }
         }
 
@@ -57,7 +56,7 @@ public class LoginService {
             loginRepository.save(user);
 
             session.setAttribute("USER", userId);
-            return new LoginResponseDto(true, "로그인 성공", userId);
+            return new LoginResponseDto(true, "로그인 성공", userId, null);
         } else {
             // 로그인 실패
             int attempts = user.getLoginAttempts() == null ? 0 : user.getLoginAttempts();
@@ -70,13 +69,13 @@ public class LoginService {
                 loginRepository.save(user);
                 return new LoginResponseDto(false,
                         "로그인 시도 횟수를 초과하여 계정이 잠겼습니다. " +
-                                LOCK_TIME_MINUTES + "분 후에 다시 시도해주세요", null);
+                                LOCK_TIME_MINUTES + "분 후에 다시 시도해주세요", null, null);
             }
 
             loginRepository.save(user);
             return new LoginResponseDto(false,
                     "아이디 또는 비밀번호가 올바르지 않습니다. 남은 시도 횟수: " +
-                            (MAX_LOGIN_ATTEMPTS - user.getLoginAttempts()) + "회", null);
+                            (MAX_LOGIN_ATTEMPTS - user.getLoginAttempts()) + "회", null, null);
         }
     }
 
