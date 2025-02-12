@@ -33,7 +33,7 @@ file:
 server:
   servlet:
     session:
-      timeout: 3m
+      timeout: 1h
 
 servlet:
   multipart:
